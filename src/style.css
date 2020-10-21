@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+* {
+  font-family: 'Comic Neue';
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.game {
+  width: max-content;
+  margin: auto;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  overflow: hidden;
+}
+
+.square {
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  padding: 0;
+  margin: 0;
+  background-color: papayawhip;
+
+}
+
+.restart {
+  width: max-content;
+  height: max-content;
+  padding: 6px 10px;
+  margin: auto 0 auto auto;
+}
+ 
+img {
+  padding: 0;
+  margin: 0;
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px; 
+}
+
+.hidden {
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  max-height: 42px;
+  margin: 0;
+  padding: 0;
+}
+
+.square-wrapper {
+  padding: 1px;
+  margin: 0;
+  height: max-content;
+  width: max-content;
+  border-radius: 5px;
+}
+
+.empty {
+  width: 40px;
+}
+
+.status-bar {
+  display: flex;
+  flex-direction: row;
+  padding: 6px;
+}
+
+.timer-wrapper {
+  display: flex;
+  flex-direction: row;
+}

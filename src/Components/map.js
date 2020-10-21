@@ -75,7 +75,7 @@ class Map extends React.Component {
 
   // plants mine after first click
   plantMines(row, col) {
-    console.log('planting ' + this.props.difficulty.numMines + ' mines');
+    console.log("plant", this.state);
     // prepare a list of allowed coordinates for mine placement
     let allowed = [];
     for (let r = 0; r < this.props.difficulty.numRows; r++) {
@@ -124,6 +124,7 @@ class Map extends React.Component {
   // uncovers a cell at a given coordinate
   // this is the 'left-click' functionality
   reveal(square) {
+    console.log("reveal", this.state);
     if (this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE) return;
 
     let isValidCoordinate = this.validateCoordinate(square.row, square.col);
@@ -174,15 +175,13 @@ class Map extends React.Component {
   }
 
   flag(square) {
-    console.log("flagging square: " + square.row + ", " + square.col);
-
+    console.log("flag",this.state);
+    clearTimeout(this.clickHoldTimer);
     let isValidCoordinate = this.validateCoordinate(square.row,square.col);
     if(!isValidCoordinate) return false;
 
     let isRevealed = this.state.grid[square.row][square.col].state === Constants.REVEALED_STATE;
     if(isRevealed) return false;
-
-    console.log("\t" + this.state.grid[square.row][square.col].state + " -> " + Constants.FLAGGED_STATE);
 
     let updatedGrid = this.state.grid.slice();
     updatedGrid[square.row][square.col].state = updatedGrid[square.row][square.col].state === Constants.FLAGGED_STATE? Constants.HIDDEN_STATE : Constants.FLAGGED_STATE;
@@ -194,21 +193,31 @@ class Map extends React.Component {
 
     return true;
   }
-
   
-  handleMouseDown(square) {
+  handleMouseDown(e, square) {
+    console.log("mdown")
+    this.isLongPress = false;
     this.clickHoldTimer = setTimeout(() => {
         this.flag(square);
+        this.isLongPress = true;
     }, 2000);
+    
     return () => clearTimeout(this.clickHoldTimer);
   }
 
-  handleMouseUp() {
+  handleMouseUp(e, square) {
+    console.log("mup")
     clearTimeout(this.clickHoldTimer);
+    if (!this.isLongPress){
+      if (e.nativeEvent.which === 1) {
+        this.reveal(square);
+      }
+    }
   }
   
   // remove flags
   clearMap() {
+    console.log("clear", this.state);
     let newGrid = this.state.grid.slice();
     for (let row = 0; row < this.props.difficulty.numRows; row++) {
       for (let col = 0; col < this.props.difficulty.numCols; col++) {
@@ -216,7 +225,10 @@ class Map extends React.Component {
           newGrid[row][col].state = Constants.HIDDEN_STATE;
       }
     }
-    this.setState({grid:newGrid,});
+    this.setState({
+      grid:newGrid,
+      numFlagged: 0,
+    });
   }
 
   // update mine counts
@@ -227,7 +239,6 @@ class Map extends React.Component {
         newGrid[row][col].mineCount = this.calculateMineCount(row, col);
       }
     }
-
     this.setState({grid:newGrid,});
   }
 
@@ -290,8 +301,8 @@ class Map extends React.Component {
       <div className="map">
         {this.state.grid.map((row, rindex) => (
           <div key={rindex} className="row">{row.map((square, index) => (
-            <div key={index} className="square-wrapper" onMouseDown={(e)=>{this.handleMouseDown(square)}} onMouseUp={(e)=>{this.handleMouseUp()}} onClick={(e)=>{this.reveal(square)}} onContextMenu={(e)=>{e.preventDefault(); this.flag(square);}}>
-              <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
+            <div key={index} className="square-wrapper" onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}}  onContextMenu={(e)=>{e.preventDefault(); this.flag(square);}}>
+                <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
             </div>
           ))}</div>
         ))}

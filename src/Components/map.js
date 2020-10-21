@@ -172,7 +172,7 @@ class Map extends React.Component {
   }
 
   flag(square) {
-    clearTimeout(this.clickHoldTimer);
+    if (this.state.gameState === Constants.WIN_STATE || this.state.gameState === Constants.LOSE_STATE) return;
     let isValidCoordinate = this.validateCoordinate(square.row,square.col);
     if(!isValidCoordinate) return false;
 
@@ -195,7 +195,7 @@ class Map extends React.Component {
     this.clickHoldTimer = setTimeout(() => {
         this.flag(square);
         this.isLongPress = true;
-    }, 2000);
+    }, 1500);
     
     return () => clearTimeout(this.clickHoldTimer);
   }
@@ -203,8 +203,10 @@ class Map extends React.Component {
   handleMouseUp(e, square) {
     clearTimeout(this.clickHoldTimer);
     if (!this.isLongPress){
-      if (e.nativeEvent.which === 1) {
+      if (e.nativeEvent.which === 0 || e.nativeEvent.which === 1) {
         this.reveal(square);
+      } else if (e.nativeEvent.which === 3) {
+        this.flag(square);
       }
     }
   }
@@ -291,10 +293,10 @@ class Map extends React.Component {
     <div>
       {this.renderStatus()}
       {this.renderRestart()}
-      <div className="map">
+      <div className={this.state.difficulty.name + "-map"}>
         {this.state.grid.map((row, rindex) => (
           <div key={rindex} className="row">{row.map((square, index) => (
-            <div key={index} className="square-wrapper" onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}}  onContextMenu={(e)=>{e.preventDefault(); this.flag(square);}}>
+            <div key={index} className="square-wrapper" onTouchStart={(e)=>{this.handleMouseDown(e, square)}} onTouchEnd={(e)=>{this.handleMouseUp(e, square)}} onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}} onContextMenu={(e)=>e.preventDefault()}>
                 <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
             </div>
           ))}</div>

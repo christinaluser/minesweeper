@@ -6,7 +6,7 @@ export const CORRECTED_STATE = "corrected";
 
 // difficulty levels
 export const EASY_MODE = {name: "easy", numRows: 10, numCols: 8, numMines: 10};
-export const MEDIUM_MODE = {name: "medium", numRows: 13, numCols: 15, numMines: 40};
+export const MEDIUM_MODE = {name: "medium", numRows: 15, numCols: 13, numMines: 40};
 export const HARD_MODE = {name: "hard", numRows: 16, numCols: 30, numMines: 99};
 
 // game state

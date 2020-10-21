@@ -13,9 +13,9 @@ export function randomInt(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-export function digitToWord(digit) {
-  const words = [zero, one, two, three, four, five, six, seven, eight];
+export function digitToImg(digit) {
+  const words = [ zero, one, two, three, four, five, six, seven, eight ];
   return words[digit];
 }
 
-export default [ randomInt, digitToWord ];
+export default [ randomInt, digitToImg ];

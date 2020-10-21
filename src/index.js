@@ -5,11 +5,15 @@ import Map from './Components/map.js';
 import * as Constants from './constants.js';
 
 class App extends React.Component {
-  list = [Constants.EASY_MODE, Constants.MEDIUM_MODE, Constants.HARD_MODE];
+  componentDidMount(){
+    document.title = "Minesweeper";
+  }
+
+  list = [Constants.EASY_MODE, Constants.MEDIUM_MODE];
   constructor(props) {
     super(props);
     this.state = {
-      difficulty: Constants.EASY_MODE,
+      difficulty: this.list[0],
     }
     this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
   }

@@ -21,7 +21,6 @@ class Map extends React.Component {
       startTime: null,
       endTime: null,
     }
-    this.clickHoldTimer = null;
     this.initGrid = this.initGrid.bind(this);
     this.resetMap = this.resetMap.bind(this);
     this.plantMines = this.plantMines.bind(this);
@@ -75,7 +74,6 @@ class Map extends React.Component {
 
   // plants mine after first click
   plantMines(row, col) {
-    console.log("plant", this.state);
     // prepare a list of allowed coordinates for mine placement
     let allowed = [];
     for (let r = 0; r < this.props.difficulty.numRows; r++) {
@@ -124,7 +122,6 @@ class Map extends React.Component {
   // uncovers a cell at a given coordinate
   // this is the 'left-click' functionality
   reveal(square) {
-    console.log("reveal", this.state);
     if (this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE) return;
 
     let isValidCoordinate = this.validateCoordinate(square.row, square.col);
@@ -175,7 +172,6 @@ class Map extends React.Component {
   }
 
   flag(square) {
-    console.log("flag",this.state);
     clearTimeout(this.clickHoldTimer);
     let isValidCoordinate = this.validateCoordinate(square.row,square.col);
     if(!isValidCoordinate) return false;
@@ -195,7 +191,6 @@ class Map extends React.Component {
   }
   
   handleMouseDown(e, square) {
-    console.log("mdown")
     this.isLongPress = false;
     this.clickHoldTimer = setTimeout(() => {
         this.flag(square);
@@ -206,7 +201,6 @@ class Map extends React.Component {
   }
 
   handleMouseUp(e, square) {
-    console.log("mup")
     clearTimeout(this.clickHoldTimer);
     if (!this.isLongPress){
       if (e.nativeEvent.which === 1) {
@@ -217,7 +211,6 @@ class Map extends React.Component {
   
   // remove flags
   clearMap() {
-    console.log("clear", this.state);
     let newGrid = this.state.grid.slice();
     for (let row = 0; row < this.props.difficulty.numRows; row++) {
       for (let col = 0; col < this.props.difficulty.numCols; col++) {

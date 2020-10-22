@@ -24,17 +24,19 @@ class App extends React.Component {
 
 
   render = () => (
-    <div className="game">
-      <div className="difficulty">
-        <select onChange={this.handleDifficultyChange}>
-          {this.list.map((option, index) =>
-            <option key={index} value={index}>
-              {option.name}
-            </option>
-          )}
-        </select>
+    <div className="game-wrapper">
+      <div className="game">
+        <div className="difficulty">
+          <select onChange={this.handleDifficultyChange}>
+            {this.list.map((option, index) =>
+              <option key={index} value={index}>
+                {option.name}
+              </option>
+            )}
+          </select>
+        </div>
+        <Map difficulty={this.state.difficulty}></Map>
       </div>
-      <Map difficulty={this.state.difficulty}></Map>
     </div>
   );
 

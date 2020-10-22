@@ -8,7 +8,7 @@
 
 #root {
   padding: 0px;
-  margin: 0;
+  margin: auto;
   width: 100%;
   max-width: 800px;
   height: 100%;
@@ -22,7 +22,6 @@
 .game {
   width: max-content;
   margin: auto;
-  
 }
 
 button {

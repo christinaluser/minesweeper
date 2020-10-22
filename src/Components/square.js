@@ -5,7 +5,6 @@ import '../style.css';
 import mine from '../Assets/mine.png';
 import flag from '../Assets/flag.png';
 import correction from '../Assets/correction.png';
-import hidden from '../Assets/hidden.png';
 
 class Square extends React.Component {
   getIcon = () => {
@@ -18,7 +17,7 @@ class Square extends React.Component {
     } else if (this.props.state === Constants.FLAGGED_STATE) {
       return <img src={ flag } alt='F'></img>
     } else if (this.props.state === Constants.HIDDEN_STATE) {
-      return <img className='hidden' src={ hidden } alt='H'></img>
+      return <img className='hidden' src={ digitToImg(0) } alt='H'></img>
     } else if (this.props.state === Constants.CORRECTED_STATE) {
       return <img src={ correction } alt='C'></img>
     } else {
@@ -27,7 +26,7 @@ class Square extends React.Component {
   }
 
   render = () => (
-    <button className="square" onClick={this.reveal} onContextMenu={this.flag}>
+    <button className={`square ${this.props.state}`} onClick={this.reveal} onContextMenu={this.flag}>
       {this.getIcon()}
     </button>
   )

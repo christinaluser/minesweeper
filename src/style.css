@@ -17,63 +17,66 @@ button {
   overflow: hidden;
 }
 
+.difficulty {
+  width: max-content;
+  margin: 5px auto;
+}
+
+select {
+  border-radius: 5px;
+  background-color: peachpuff;
+  border: none;
+  padding: 5px;
+  margin: auto;
+}
+
+option {
+  font-size: 18px;
+  margin: 0;
+  padding: 0px;
+  background-color: papayawhip;
+}
+
 .square {
-  width: 40px;
-  height: 40px;
   max-width: 40px;
   max-height: 40px;
-  padding: 0;
-  margin: 0;
+  padding: 1px;
+  margin: 1px;
   background-color: papayawhip;
+  overflow: hidden;
 }
 
 .restart {
   width: max-content;
   height: max-content;
-  padding: 6px 10px;
-  margin: auto 0 auto auto;
+
 }
  
-img {
+.status-bar img {
   padding: 0;
   margin: 0;
   width: 25px;
   height: 25px;
-  max-width: 25px;
-  max-height: 25px; 
+  max-width: 35px;
+  max-height: 35px; 
+}
+
+img {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .hidden {
-  width: 40px;
-  height: 40px;
-  max-width: 40px;
-  max-height: 40px;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  max-height: 42px;
-  margin: 0;
-  padding: 0;
-}
-
-.square-wrapper {
-  padding: 1px;
-  margin: 0;
-  height: max-content;
-  width: max-content;
-  border-radius: 5px;
-}
-
-.empty {
-  width: 40px;
+  background-color:#ecc1c7 ;
 }
 
 .status-bar {
   display: flex;
   flex-direction: row;
-  padding: 6px;
+  justify-content: space-around;
+  padding: 5px;
 }
 
 .timer-wrapper {
@@ -81,21 +84,17 @@ img {
   flex-direction: row;
 }
 
-@media (max-width: 800px) {
-  .game {
-    max-width: 100vw;
-    width: max-content;
-    padding: 0;
-    margin: auto;
-  }
+.map {
+  display: grid;
+  width: calc(70vh) !important;
+  max-width: 800px;
+  padding: 5px;
+}
 
-  .medium-map .square {
-    width: 95/15vw;
-    height: 95/15vw;
-  }
+.medium {
+  grid-template-columns: repeat(18, 1fr);
+}
 
-  .medium-map .square-wrapper {
-    width: 95/15vw;
-    height: 95/15vw;
-  }
+.easy {
+  grid-template-columns: repeat(10, 1fr);
 }

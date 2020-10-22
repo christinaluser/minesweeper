@@ -25,7 +25,7 @@ class App extends React.Component {
 
   render = () => (
     <div className="game">
-      <label>difficulty: &emsp;
+      <div className="difficulty">
         <select onChange={this.handleDifficultyChange}>
           {this.list.map((option, index) =>
             <option key={index} value={index}>
@@ -33,7 +33,7 @@ class App extends React.Component {
             </option>
           )}
         </select>
-      </label>
+      </div>
       <Map difficulty={this.state.difficulty}></Map>
     </div>
   );

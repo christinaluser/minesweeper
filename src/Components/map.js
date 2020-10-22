@@ -1,4 +1,3 @@
-// import { ReactComponent } from '*.svg';
 import React from 'react';
 import Square from './square.js';
 import Timer from './timer.js';
@@ -7,7 +6,6 @@ import {randomInt} from '../helper.js';
 import '../style.css';
 import mine from '../Assets/mine.png';
 import flag from '../Assets/flag.png';
-// import timer from '../Assets/timer.png';
 
 class Map extends React.Component {
   constructor(props){
@@ -195,7 +193,7 @@ class Map extends React.Component {
     this.clickHoldTimer = setTimeout(() => {
         this.flag(square);
         this.isLongPress = true;
-    }, 1500);
+    }, 1000);
     
     return () => clearTimeout(this.clickHoldTimer);
   }
@@ -267,24 +265,25 @@ class Map extends React.Component {
     }
   }
 
-  renderRestart = () => (
+  renderGameState = () => (
     <div>
       <div className="status-bar">
-          <h2>{this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE ? this.state.gameState + '!' : "" }</h2>
-          <button className='restart' onClick={() => {this.resetMap(); this.initGrid()}}>{this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE ? 'Play Again' : 'Restart'}</button>
-        </div> 
+        <h2>{this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE ? this.state.gameState + '!' : "" }</h2>
+      </div> 
     </div>
   )
 
   renderStatus = () => (
     <div>
       <div className="status-bar">
-        <img src={flag} alt="flag"></img>
-        <span>{this.state.numFlagged} / </span>
-        <img src={mine} alt="mine"></img>
-        <span>{this.state.difficulty.numMines}</span>
-        <div className="empty"></div>
+        <div className="mines-left">
+          <img src={flag} alt="flag"></img>
+          <span>{this.state.numFlagged} / </span>
+          <img src={mine} alt="mine"></img>
+          <span>{this.state.difficulty.numMines}</span>
+        </div>
         <Timer startTime={this.state.startTime} endTime={this.state.endTime} currentTime={Date.now()}></Timer>
+        <button className='restart' onClick={() => {this.resetMap(); this.initGrid()}}>{this.state.gameState === Constants.LOSE_STATE || this.state.gameState === Constants.WIN_STATE ? 'Play Again' : 'Restart'}</button>
       </div>
     </div>
   )
@@ -292,15 +291,17 @@ class Map extends React.Component {
   render = () => (
     <div>
       {this.renderStatus()}
-      {this.renderRestart()}
-      <div className={this.state.difficulty.name + "-map"}>
-        {this.state.grid.map((row, rindex) => (
-          <div key={rindex} className="row">{row.map((square, index) => (
-            <div key={index} className="square-wrapper" onTouchStart={(e)=>{this.handleMouseDown(e, square)}} onTouchEnd={(e)=>{this.handleMouseUp(e, square)}} onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}} onContextMenu={(e)=>e.preventDefault()}>
-                <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
-            </div>
-          ))}</div>
-        ))}
+      {this.renderGameState()}
+      <div className="map-wrapper">
+        <div className={`map ${this.state.difficulty.name}`} >
+          {this.state.grid.map((row, rindex) => (
+            row.map((square, index) => (
+              <div className="square-wrapper" key={index} onTouchStart={(e)=>{this.handleMouseDown(e, square)}} onTouchEnd={(e)=>{this.handleMouseUp(e, square)}} onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}} onContextMenu={(e)=>e.preventDefault()}>
+                  <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
+              </div>
+            ))
+          ))}
+        </div>
       </div>
     </div>
   )

@@ -257,6 +257,7 @@ class Map extends React.Component {
   }
 
   checkWin() {
+    if (this.state.LOSE_STATE) return;
     if (this.state.numRevealed === this.props.difficulty.numRows * this.props.difficulty.numCols - this.props.difficulty.numMines) {
       this.setState({
         gameState: Constants.WIN_STATE,
@@ -296,8 +297,13 @@ class Map extends React.Component {
         <div className={`map ${this.state.difficulty.name}`} >
           {this.state.grid.map((row, rindex) => (
             row.map((square, index) => (
-              <div className="square-wrapper" key={index} onTouchStart={(e)=>{this.handleMouseDown(e, square)}} onTouchEnd={(e)=>{this.handleMouseUp(e, square)}} onMouseDown={(e)=>{this.handleMouseDown(e, square)}} onMouseUp={(e)=>{this.handleMouseUp(e, square)}} onContextMenu={(e)=>e.preventDefault()}>
-                  <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
+              <div key={index} 
+                onTouchStart={(e)=>{this.handleMouseDown(e, square)}} 
+                onTouchEnd={(e)=>{this.handleMouseUp(e, square);}} 
+                onMouseDown={(e)=>{this.handleMouseDown(e, square);}} 
+                onMouseUp={(e)=>{this.handleMouseUp(e, square);}} 
+                onContextMenu={(e)=>e.preventDefault()}>
+                <Square state={square.state} mineCount={square.mineCount} isMine={square.isMine}></Square>
               </div>
             ))
           ))}

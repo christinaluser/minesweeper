@@ -204,6 +204,7 @@ class Map extends React.Component {
       if (e.nativeEvent.which === 0 || e.nativeEvent.which === 1) {
         this.reveal(square);
       } else if (e.nativeEvent.which === 3) {
+        e.preventDefault();
         this.flag(square);
       }
     }

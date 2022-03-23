@@ -9,7 +9,7 @@ class App extends React.Component {
     document.title = "Minesweeper";
   }
 
-  list = [Constants.EASY_MODE, Constants.MEDIUM_MODE];
+  list = [Constants.EASY_MODE, Constants.MEDIUM_MODE, Constants.HARD_MODE];
   constructor(props) {
     super(props);
     this.state = {

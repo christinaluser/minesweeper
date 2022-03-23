@@ -101,15 +101,23 @@ img {
 
 .map {
   display: grid;
-  width: calc(70vh) !important;
   max-width: 800px;
   padding: 5px;
 }
 
 .medium {
   grid-template-columns: repeat(18, 1fr);
+  grid-gap: 2px;
 }
 
 .easy {
   grid-template-columns: repeat(10, 1fr);
+  grid-gap: 2px;
+  max-width: 550px;
+  margin: auto;
+}
+
+.hard {
+  grid-template-columns: repeat(25, 1fr);
+  grid-gap: 2px;
 }

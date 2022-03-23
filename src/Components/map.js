@@ -6,6 +6,8 @@ import {randomInt} from '../helper.js';
 import '../style.css';
 import mine from '../Assets/mine.png';
 import flag from '../Assets/flag.png';
+import one from '../Assets/1.png';
+import eight from '../Assets/8.png';
 
 class Map extends React.Component {
   constructor(props){
@@ -308,6 +310,16 @@ class Map extends React.Component {
               </div>
             ))
           ))}
+        </div>
+      </div>
+      <div>
+        <h2>How to play</h2>
+        <div style={{maxWidth: '50vw'}}>
+            Each square is either a mine <img src={mine} alt='mine' style={{height: '20px', width:'20px'}}></img>, a number <img src={one} alt='1' style={{height: '20px', width:'20px'}}></img>-<img src={eight} alt='8' style={{height: '20px', width:'20px'}}></img>, or empty.
+            You lose if you cick on a mine. <br/> 
+            The number on a square tells you how many mines are adjacent to the square, empty squares have no mines adjacent and are revealed automatically <br/>
+            The goal is to flag <img src={flag} alt='flag' style={{height: '20px', width:'20px'}}></img> all the mines.
+            Left click or tap a square to reveal it. Right click or long press to flag/unflag. 
         </div>
       </div>
     </div>
